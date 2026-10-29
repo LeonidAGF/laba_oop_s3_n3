@@ -206,26 +206,18 @@ bool Set::operator!=(const Set& x) const {
 }
 
 bool Set::operator<=(const Set& x) const {
-	bool res = 1;
-	if (size_ > x.size_)
-		res = 0;
-	else {
-		size_t i = 0, j = 0;
-		while (i < size_ && j < x.size_) {
-			if (data_[i] < x.data_[j]) {
-				res = 0;
-				break;
-			}
-			else if (x.data_[j] < data_[i])
-				++j;
-			else {
-
-				++i;
-				++j;
-			}
+	size_t i = 0, j = 0;
+	while (i < size_ && j < x.size_) {
+		if (data_[i] < x.data_[j])
+			return false;
+		else if (x.data_[j] < data_[i])
+			++j;
+		else {
+			++i;
+			++j;
 		}
 	}
-	return res;
+	return i == size_;
 }
 
 std::ostream& operator<<(std::ostream& os, const Set& s) {
